@@ -5,16 +5,40 @@ const defaultState = {
   timeLeft: 10
 }
 
+const actuallyMoveIt = (state, action) => {
+  if(action.type === "change_location") {
+    return {
+      ...state,
+      clickables: [{ix: generateRandomNumber(), iy: generateRandomNumber()}, {ix: generateRandomNumber(), iy: generateRandomNumber()}]
+    }
+  } 
+}
+
+const actuallyControlTimer = (state, action) => {
+  if(action.type === 'countdown2') {
+    if(state.timeLeft >= 0) {
+      return {
+        ...state,
+        timeLeft: state.timeLeft - 1
+      };
+    }
+  }
+}
+
 function moveClickables(state = defaultState, action) {
   if(action.type === "change_location"){
     if(state.timeLeft >= 0){ 
       console.log(state.timeLeft)
       console.log(state.clickables)
-      return {
-        ...state,
-        clickables: [{ix: generateRandomNumber(), iy: generateRandomNumber()}, {ix: generateRandomNumber(), iy: generateRandomNumber()}]
-      };
+      return actuallyMoveIt(state, action);
     }
+  }
+  if(action.type === 'countdown2') {
+    if(state.timeLeft >= 0){
+      console.log("In countdown2")
+      console.log(state.timeLeft);
+      return actuallyControlTimer(state, action)
+    }   
   }
   return state;
 }
@@ -23,10 +47,7 @@ function controlTimer(state = defaultState, action) {
   if(action.type === 'countdown') {
     if(state.timeLeft >= 0){
       console.log(state.timeLeft);
-      return {
-        ...state,
-        timeLeft: state.timeLeft - 1
-      };
+      return actuallyControlTimer(state, action)
     }   
   }
   return state;
@@ -34,7 +55,7 @@ function controlTimer(state = defaultState, action) {
 
 setInterval( function() {
   store.dispatch({
-    type: 'countdown'
+    type: 'countdown2'
   })
   store.dispatch({
     type: 'change_location'
