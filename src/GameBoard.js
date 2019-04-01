@@ -1,6 +1,7 @@
 import React from "react";
 import utils from "./utils";
 import GridButton from './GridButton';
+import { connect } from 'react-redux'
 
 const GameBoard = props => {
   const xSize = 21;
@@ -25,4 +26,8 @@ const GameBoard = props => {
   );
 };
 
-export default GameBoard;
+export default connect(function mapStateToProps(state) {
+  return {
+    clickables: state.clickables
+  };
+})(GameBoard);

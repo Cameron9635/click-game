@@ -28,26 +28,27 @@ const actuallyControlTimer = (state, action) => {
 function moveClickables(state = defaultState, action) {
   if(action.type === "change_location"){
     if(state.timeLeft >= 0){ 
-      console.log(state.timeLeft)
-      console.log(state.clickables)
-      return actuallyMoveIt(state, action);
+      console.log(state.clickables);
+      // return actuallyMoveIt(state, action);
+      return {
+        ...state,
+        clickables: [{ix: generateRandomNumber(), iy: generateRandomNumber()}, {ix: generateRandomNumber(), iy: generateRandomNumber()}]
+      }
     }
   }
   if(action.type === 'countdown2') {
     if(state.timeLeft >= 0){
-      console.log("In countdown2")
-      console.log(state.timeLeft);
-      return actuallyControlTimer(state, action)
+      return actuallyControlTimer(state, action);
     }   
   }
-  return state;
+  return {...state};
 }
 
 function controlTimer(state = defaultState, action) {
   if(action.type === 'countdown') {
     if(state.timeLeft >= 0){
       console.log(state.timeLeft);
-      return actuallyControlTimer(state, action)
+      return actuallyControlTimer(state, action);
     }   
   }
   return state;
