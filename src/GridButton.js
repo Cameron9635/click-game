@@ -7,7 +7,7 @@ const GridButton = props => {
 
   const showKey = () => {
     props.dispatch({type: "change_location"});
-    console.log(clickables);
+    console.log(props.clickables);
   }
 
   const getButtonColor = () => {
@@ -35,7 +35,7 @@ const GridButton = props => {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     clickables: state.clickables,
     timeLeft: state.timeLeft

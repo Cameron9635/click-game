@@ -54,14 +54,14 @@ function controlTimer(state = defaultState, action) {
   return state;
 }
 
-setInterval( function() {
-  store.dispatch({
-    type: 'countdown2'
-  })
-  store.dispatch({
-    type: 'change_location'
-  })
-}, 1000)
+// setInterval( function() {
+//   store.dispatch({
+//     type: 'countdown2'
+//   })
+//   store.dispatch({
+//     type: 'change_location'
+//   })
+// }, 1000)
 
 const generateRandomNumber = () => {
   return Math.floor(Math.random() * 20) + 1
